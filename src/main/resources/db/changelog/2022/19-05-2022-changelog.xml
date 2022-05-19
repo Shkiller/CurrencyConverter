@@ -13,7 +13,7 @@
             </column>
             <column name="currency_from" type="VARCHAR(50)"/>
             <column name="currency_to" type="VARCHAR(50)"/>
-            <column name="currency_value" type="NUMERIC"/>
+            <column name="currency_value" type="DECIMAL(50,6)"/>
             <column name="user_id" type="int"/>
         </createTable>
     </changeSet>

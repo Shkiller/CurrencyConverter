@@ -10,4 +10,5 @@ public class ExchangeRequestData {
     private String to;
     private BigDecimal value;
     private int id;
+    private BigDecimal usdValue;
 }

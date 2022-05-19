@@ -17,15 +17,16 @@ import java.math.BigDecimal;
 public class ExchangeService {
     private final ExchangeRepository exchangeRepository;
 
-    public ExchangeData getExchange(ExchangeRequestData exchangeRequestData) {
+    public ExchangeData exchange(ExchangeRequestData exchangeRequestData) {
         MonetaryAmount monetaryFrom = Monetary.getDefaultAmountFactory().setCurrency(exchangeRequestData.getFrom())
                 .setNumber(exchangeRequestData.getValue()).create();
         MonetaryAmount convertedAmount = monetaryFrom.with(MonetaryConversions.getConversion(exchangeRequestData.getTo()));
+        MonetaryAmount convertUSD = monetaryFrom.with(MonetaryConversions.getConversion("USD"));
         Exchange exchange = exchangeRepository.save(new Exchange()
                 .setFrom(exchangeRequestData.getFrom())
                 .setTo(exchangeRequestData.getTo())
-                .setId(exchangeRequestData.getId())
-                .setValue(exchangeRequestData.getValue()));
+                .setUserId(exchangeRequestData.getId())
+                .setValue(convertUSD.getNumber().numberValue(BigDecimal.class)));
         return new ExchangeData(exchange.getId(), convertedAmount.getNumber().numberValue(BigDecimal.class));
     }
 }
