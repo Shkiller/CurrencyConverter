@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/test_db?allowPublicKeyRetrieval=true&useSSL=false&&serverTimezone=UTC&autoReconnect=true&maxReconnects=10&zeroDateTimeBehavior=round
+    username: user
+    password: user
+  liquibase:
+    change-log: /db/changelog/changelog.yml
+  jpa:
+    show-sql: false
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      ddl-auto: validate
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql_db_container:3306/test_db?allowPublicKeyRetrieval=true&useSSL=false&&serverTimezone=UTC&autoReconnect=true&maxReconnects=10&zeroDateTimeBehavior=round
+    username: user
+    password: user
+  liquibase:
+    change-log: /db/changelog/changelog.yml
+  jpa:
+    show-sql: false
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      ddl-auto: validate
