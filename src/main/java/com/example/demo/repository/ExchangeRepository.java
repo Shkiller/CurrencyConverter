@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
 import java.util.Set;
 
 @Repository
@@ -20,9 +21,9 @@ public interface ExchangeRepository extends JpaRepository<Exchange, Integer> {
             "HAVING sum(e.value) > 100000 ")
     Set<Integer> findAllByValue100000();
 
-    @Query("SELECT e.to " +
+    @Query("SELECT concat(e.from,'->', e.to) " +
             "FROM Exchange e " +
-            "GROUP BY e.to " +
-            "ORDER BY count(e.to)  DESC")
+            "GROUP BY e.from, e.to " +
+            "ORDER BY count(e)  DESC")
     Set<String> findAllByToCount();
 }

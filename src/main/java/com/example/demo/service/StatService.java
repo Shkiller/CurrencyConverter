@@ -4,7 +4,7 @@ import com.example.demo.repository.ExchangeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Set;
 
 @Service
@@ -20,7 +20,7 @@ public class StatService {
         return exchangeRepository.findAllByValue100000();
     }
 
-    public Set<String> getRating() {
+    public  Set<String> getRating() {
         return exchangeRepository.findAllByToCount();
     }
 }
